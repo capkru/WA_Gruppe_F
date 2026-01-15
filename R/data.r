@@ -1,3 +1,21 @@
+#
+# Gregorii 
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+# Schritt 1.4 
 # 1. Daten laden (Pfad anpassen, falls nötig)
 titanic <- read.csv("data/titanic.csv")
 
