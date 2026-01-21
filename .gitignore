@@ -1,0 +1,16 @@
+# R
+.Rhistory
+# Protokoll der R-Konsole
+.Rproj.user/
+# Benutzerspezifische Einstellung für RStudio
+*.RData
+# Gespeicherte Arbeitsumgebungen
+
+# LaTeX Nebenprodukte (alle anscheinend Hilfsdatein für die Kompelierung)
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+*.lof
+*.lot
