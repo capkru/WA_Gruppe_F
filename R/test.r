@@ -1,1 +1,0 @@
-norm_dist = sample()
