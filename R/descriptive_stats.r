@@ -22,11 +22,12 @@ stats_metric <- function(x) {
 
 ## (ii) - Daniel
 stats_categorical <- function(x) {
-  if(!is.factor(x) && !is.character(x)) stop("Kein Kategorialer Parameter")
   # Checkt ob die Daten in der richtigen Form sind
+  if(!is.factor(x) && !is.character(x)) stop("Kein Kategorialer Parameter")
   
-  
-  
+  # Gibt die absolute Häufigkeit der Variable aus
+  cat("Absolute Häufigkeit:\n")
+  print(table(x))
 }
 
 ## (iii) - Mirah
