@@ -32,6 +32,11 @@ stats_categorical <- function(x) {
   # Gibt die relative Häufigkeit aus
   cat("\nRelative Häufigkeit:\n")
   print(prop.table(table(x)))
+  
+  # Gibt Ergebnisse als Lsite zurück
+  freq  <- table(x)
+  prop  <- prop.table(freq)
+  return(list(freq = freq, prop = prop))
 }
 
 ## (iii) - Mirah
