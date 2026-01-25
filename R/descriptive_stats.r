@@ -1,5 +1,7 @@
 ## Aufgabe 2(a)
+
 source("helper_functions.r") # Hilfsfunktionen laden
+
 ## (i) - Gregor
 stats_metric <- function(x) {
     if (is.numeric(x)) {
@@ -19,7 +21,23 @@ stats_metric <- function(x) {
 
 
 ## (ii) - Daniel
-
+stats_categorical <- function(x) {
+  # Checkt ob die Daten in der richtigen Form sind
+  if(!is.factor(x) && !is.character(x)) stop("Kein Kategorialer Parameter")
+  
+  # Gibt die absolute Häufigkeit der Variable aus
+  cat("Absolute Häufigkeit:\n")
+  print(table(x))
+  
+  # Gibt die relative Häufigkeit aus
+  cat("\nRelative Häufigkeit:\n")
+  print(prop.table(table(x)))
+  
+  # Gibt Ergebnisse als Lsite zurück
+  freq  <- table(x)
+  prop  <- prop.table(freq)
+  return(list(freq = freq, prop = prop))
+}
 
 ## (iii) - Mirah
 
