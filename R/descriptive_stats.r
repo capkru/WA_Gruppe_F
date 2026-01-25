@@ -28,6 +28,10 @@ stats_categorical <- function(x) {
   # Gibt die absolute Häufigkeit der Variable aus
   cat("Absolute Häufigkeit:\n")
   print(table(x))
+  
+  # Gibt die relative Häufigkeit aus
+  cat("\nRelative Häufigkeit:\n")
+  print(prop.table(table(x)))
 }
 
 ## (iii) - Mirah
