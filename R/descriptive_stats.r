@@ -46,4 +46,16 @@ stats_categorical <- function(x) {
 
 
 ## (v) - Anas
-
+# Funktion um einen gruppierten Balkendiagramm für drei kategoriale Variablen zu erstellen
+plot_categorical_variables <- function(data, var1, var2, var3) {
+  library(ggplot2)
+  
+  # einen Balkendiagramm erstellen
+  ggplot(data, aes(x = factor(var1), fill = interaction(var2, var3))) +
+    geom_bar(position = "dodge") +
+    labs(title = "kategorialen Variablene Visualization", 
+         x = var1, 
+         y = "Count", 
+         fill = "Interaktion zwischen Variabeln") +
+    theme_minimal()
+}
