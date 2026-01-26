@@ -14,7 +14,7 @@ berechneLage <- function(x) {
 }
 
 # Streuungsmaße berechnen
-berechneStreuung <- function(x) {
+berechne_streuung <- function(x) {
   x <- na.omit(x)
   list(
     Standardabweichung = sd(x),
@@ -25,8 +25,14 @@ berechneStreuung <- function(x) {
   )
 }
 
+# Modus berechnen
+berechne_modus <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
 # Verteilungsmaße berechnen
-berechneVerteilung <- function(x) {
+berechne_verteilung <- function(x) {
   x <- na.omit(x)
   n <- length(x)
   m <- mean(x)
@@ -38,16 +44,10 @@ berechneVerteilung <- function(x) {
 }
 
 # Min und Max berechnen
-berechneExtrema <- function(x) {
+berechne_extrema <- function(x) {
   x <- na.omit(x)
   list(
     Minimum = min(x),
     Maximum = max(x)
   )
-}
-
-# Modus berechnen
-berechneModus <- function(x) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
 }
