@@ -41,7 +41,9 @@ stats_categorical <- function(x) {
 }
 
 ## (iii) - Mirah
-
+bivariat_kategorial <- function(data, var1, var2){
+  tab <- table(data[[var1]], data[[var2]])
+}
 
 ## (iv) - Yi Wei
 bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
