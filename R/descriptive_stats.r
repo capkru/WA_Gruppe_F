@@ -44,6 +44,7 @@ stats_categorical <- function(x) {
 
 
 ## (iv) - Yi Wei
+##Metrisch x dichotom
 bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
   x <- data[[metrisch]]
   g <- as.factor(data[[dichotom]])
