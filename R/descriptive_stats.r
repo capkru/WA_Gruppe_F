@@ -44,6 +44,17 @@ stats_categorical <- function(x) {
 
 
 ## (iv) - Yi Wei
+bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
+  x <- data[[metrisch]]
+  g <- as.factor(data[[dichotom]])
+  
+  boxplot(x ~ g,
+          main = paste(metrisch, "nach", dichotom),
+          xlab = dichotom,
+          ylab = metrisch)
+  
+  tapply(x, g, mean, na.rm = TRUE)
+}
 
 
 ## (v) - Anas
