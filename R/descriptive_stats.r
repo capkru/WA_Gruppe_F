@@ -4,8 +4,9 @@ source("helper_functions.r") # Hilfsfunktionen laden
 
 ## (i) - Gregor
 stats_metric <- function(x) {
-    if (is.numeric(x)) {
-        cat("Lageparameter:\n") # nolint
+    # Vor der Berechnung prüfen, ob die Variable numerisch ist
+    if (is.numeric(x)) { 
+        cat("Lageparameter:\n") 
         print(berechne_lage(x))
 
         cat("\nStreuungsmaße:\n")
