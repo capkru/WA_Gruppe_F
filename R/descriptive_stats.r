@@ -43,6 +43,11 @@ stats_categorical <- function(x) {
 ## (iii) - Mirah
 bivariat_kategorial <- function(data, var1, var2){
   tab <- table(data[[var1]], data[[var2]])
+  
+  list(
+    Kontingenztabelle = tab,
+    Relative_Haefigkeiten = prop.table(tab)
+  )
 }
 
 ## (iv) - Yi Wei
