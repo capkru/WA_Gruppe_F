@@ -1,9 +1,11 @@
 # test_functions.r
 # Skript zum Testen der Funktionen aus descriptive_stats.r
+# HINWEIS: Dieses Skript muss im Hauptordner (WA_Gruppe_F) ausgeführt werden!
 
 # 1. Umgebung vorbereiten
 # ---------------------
-cat("=== STARTE TESTS ===\n\n")
+cat("=== STARTE TESTS ===\n")
+cat("Arbeitsverzeichnis:", getwd(), "\n\n")
 
 # Dummy-Daten erstellen (damit wir unabhängig von titanic.csv testen können)
 dummy_data <- data.frame(
@@ -13,14 +15,19 @@ dummy_data <- data.frame(
   Survived = factor(c(0, 1, 1, 1, 0, 0, 0, 0, 1, 1))
 )
 
-# Dateien laden (Pfade ggf. anpassen!)
-# Wir gehen davon aus, dass helper_functions.r im gleichen Ordner liegt
-if(file.exists("helper_functions.r") && file.exists("descriptive_stats.r")) {
-  source("helper_functions.r")
-  source("descriptive_stats.r")
-  cat("[OK] Dateien geladen.\n")
+# Pfade zu den Skripten definieren
+script_desc <- "R/descriptive_stats.r"
+# helper_functions.r wird indirekt durch descriptive_stats.r geladen,
+# muss aber auch existieren.
+script_help <- "R/helper_functions.r"
+
+if(file.exists(script_desc) && file.exists(script_help)) {
+  # Wir laden nur descriptive_stats.r. Da du dort source("R/helper_functions.r")
+  # eingetragen hast, wird die Helper-Datei automatisch mitgeladen.
+  source(script_desc)
+  cat("[OK] Skripte aus Ordner 'R/' geladen.\n")
 } else {
-  stop("Kritischer Fehler: helper_functions.r oder descriptive_stats.r nicht gefunden!")
+  stop("Kritischer Fehler: Skripte nicht in 'R/' gefunden. Bist du im Ordner 'WA_Gruppe_F'?")
 }
 
 # Hilfsfunktion für Fehlertests
@@ -81,4 +88,3 @@ cat("Test 2: Spaltenname falsch...\n")
 expect_error(plot_categorical_variables(dummy_data, "Klasse", "Geschlecht", "Falsch"))
 
 cat("\n=== TESTS BEENDET ===\n")
-
