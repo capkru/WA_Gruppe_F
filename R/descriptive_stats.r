@@ -75,6 +75,17 @@ bivariat_kategorial <- function(data, var1, var2){
 ## (iv) - Yi Wei
 ## Metrisch x dichotom
 bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
+  # Checkt ob data ein Dataframe ist
+  if (!is.data.frame(data)) stop("Fehler in bivariat_metrisch_dichotom: 
+                                 'data' muss ein Dataframe sein.")
+  # Checkt ob die Variable im Datensatz ist
+  if (!all(c(metrisch, dichotom) %in% names(data))) stop("Fehler in bivariat_metrisch_dichotom: 
+                                                         Variablen nicht im Datensatz gefunden.")
+  
+  # Checkt den Datentyp der Spalte
+  if (!is.numeric(data[[metrisch]])) stop(paste("Fehler bivariat_metrisch_dichotom:", 
+                                                metrisch, "muss numerisch sein."))
+  
   x <- data[[metrisch]]
   g <- as.factor(data[[dichotom]])
   
