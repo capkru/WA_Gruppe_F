@@ -1,6 +1,6 @@
 ## Aufgabe 2(a)
 
-source("helper_functions.r") # Hilfsfunktionen laden
+source("R/helper_functions.r") # Hilfsfunktionen laden
 
 ## (i) - Gregor
 stats_metric <- function(x) {
@@ -122,3 +122,4 @@ plot_categorical_variables <- function(data, var1, var2, var3) {
          fill = "Interaktion zwischen Variabeln") +
     theme_minimal()
 }
+
