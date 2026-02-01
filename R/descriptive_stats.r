@@ -114,7 +114,7 @@ plot_categorical_variables <- function(data, var1, var2, var3) {
                                                        Variablen existieren nicht im Datensatz.")
   
   # einen Balkendiagramm erstellen
-  ggplot(data, aes(x = factor(.data[[var1]]), fill = interaction(var2, var3))) +
+  ggplot(data, aes(x = factor(.data[[var1]]), fill = interaction(.data[[var2]], .data[[var3]]))) +
     geom_bar(position = "dodge") +
     labs(title = "kategorialen Variablene Visualization", 
          x = var1, 
