@@ -60,9 +60,11 @@ bivariat_kategorial <- function(data, var1, var2){
   if (!all(c(var1, var2) %in% names(data))) stop("Fehler in bivariat_kategorial: 
                                                  Eine der Variablen existiert 
                                                  nicht im Datensatz.")
-  # Checkt ob die Spalten an siche kategorial sind
-  if (!is.factor(data[[var1]]) && !is.character(data[[var1]])) stop(paste("Fehler in bivariat_kategorial:", var1, "ist nicht kategorial."))
-  if (!is.factor(data[[var2]]) && !is.character(data[[var2]])) stop(paste("Fehler in bivariat_kategorial:", var2, "ist nicht kategorial."))
+  # Checkt ob die Spalten an sich kategorial sind
+  if (!is.factor(data[[var1]]) && !is.character(data[[var1]])) stop(paste(
+    "Fehler in bivariat_kategorial:", var1, "ist nicht kategorial."))
+  if (!is.factor(data[[var2]]) && !is.character(data[[var2]])) stop(paste(
+    "Fehler in bivariat_kategorial:", var2, "ist nicht kategorial."))
   
   tab <- table(data[[var1]], data[[var2]])
   
@@ -102,6 +104,14 @@ bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
 # Funktion um einen gruppierten Balkendiagramm für drei kategoriale Variablen zu erstellen
 plot_categorical_variables <- function(data, var1, var2, var3) {
   library(ggplot2)
+  
+  # Checkt ob data ein Dataframe ist
+  if (!is.data.frame(data)) stop("Fehler in plot_categorical_variables: 
+                                 'data' muss ein Dataframe sein.")
+  
+  # Checkt ob die Variable im Datensatz existiert
+  if (!all(c(var1, var2, var3) %in% names(data))) stop("Fehler in plot_categorical_variables: 
+                                                       Variablen existieren nicht im Datensatz.")
   
   # einen Balkendiagramm erstellen
   ggplot(data, aes(x = factor(var1), fill = interaction(var2, var3))) +
