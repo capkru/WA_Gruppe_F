@@ -46,6 +46,24 @@ stats_categorical <- function(x) {
 
 ## (iii) - Mirah
 bivariat_kategorial <- function(data, var1, var2){
+  # Checkt ob data ein Dataframe ist
+  if (!is.data.frame(data)) stop("Fehler in bivariat_kategorial: 
+                                 data muss ein Dataframe sein.")
+  
+  # Checkt ob var1 und var2 Strings sind
+  if (!is.character(var1) || !is.character(var2)) stop("Fehler in 
+                                                       bivariat_kategorial: 
+                                                       var1 und var2 müssen
+                                                       Strings sein.")
+  
+  # Checkt ob die Spalten im Datensatz existieren
+  if (!all(c(var1, var2) %in% names(data))) stop("Fehler in bivariat_kategorial: 
+                                                 Eine der Variablen existiert 
+                                                 nicht im Datensatz.")
+  # Checkt ob die Spalten an siche kategorial sind
+  if (!is.factor(data[[var1]]) && !is.character(data[[var1]])) stop(paste("Fehler in bivariat_kategorial:", var1, "ist nicht kategorial."))
+  if (!is.factor(data[[var2]]) && !is.character(data[[var2]])) stop(paste("Fehler in bivariat_kategorial:", var2, "ist nicht kategorial."))
+  
   tab <- table(data[[var1]], data[[var2]])
   
   list(
@@ -55,7 +73,7 @@ bivariat_kategorial <- function(data, var1, var2){
 }
 
 ## (iv) - Yi Wei
-##Metrisch x dichotom
+## Metrisch x dichotom
 bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
   x <- data[[metrisch]]
   g <- as.factor(data[[dichotom]])
