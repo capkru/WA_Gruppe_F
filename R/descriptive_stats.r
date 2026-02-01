@@ -4,27 +4,31 @@ source("helper_functions.r") # Hilfsfunktionen laden
 
 ## (i) - Gregor
 stats_metric <- function(x) {
-    # Vor der Berechnung prüfen, ob die Variable numerisch ist
-    if (is.numeric(x)) { 
-        cat("Lageparameter:\n") 
-        print(berechne_lage(x))
+  # Vor der Berechnung prüfen, ob die Variable numerisch ist
+  if (!is.numeric(x)) {
+    stop("Fehler in stats_metric: Input muss numerisch sein.")
+  }
+  
+  cat("Lageparameter:\n") 
+  print(berechne_lage(x))
 
-        cat("\nStreuungsmaße:\n")
-        print(berechne_streuung(x))
+  cat("\nStreuungsmaße:\n")
+  print(berechne_streuung(x))
         
-        cat("\nVerteilungsmaße:\n")
-        print(berechne_verteilung(x))
+  cat("\nVerteilungsmaße:\n")
+  print(berechne_verteilung(x))
 
-        cat("\nMin und Max:\n")
-        print(berechne_extrema(x))
-    }
+  cat("\nMin und Max:\n")
+  print(berechne_extrema(x))
 }
 
 
 ## (ii) - Daniel
 stats_categorical <- function(x) {
   # Checkt ob die Daten in der richtigen Form sind
-  if(!is.factor(x) && !is.character(x)) stop("Kein Kategorialer Parameter")
+  if(!is.factor(x) && !is.character(x)) stop("Fehler in stats_categorical: 
+                                             Input muss ein Faktor oder 
+                                             Character sein.")
   
   # Gibt die absolute Häufigkeit der Variable aus
   cat("Absolute Häufigkeit:\n")
