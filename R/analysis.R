@@ -1,6 +1,6 @@
 # Hilfsfuktionen laden
-source("functions/descriptive_stats.R")
-source("functions/helper_functions.R")
+source("R/descriptive_stats.R")
+source("R/helper_functions.R")
 
 # aufgeraeumten Datensatz laden
 titanic <- read.csv("data/titanic_cleaned.csv")
