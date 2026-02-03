@@ -88,6 +88,9 @@ bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
   if (!is.numeric(data[[metrisch]])) stop(paste("Fehler bivariat_metrisch_dichotom:", 
                                                 metrisch, "muss numerisch sein."))
   
+  # Checkt dichotom
+  if (length(unique(na.omit(data[[dichotom]]))) != 2)  stop("Fehler: dichotome Variable muss genau zwei Ausprägungen haben.")
+  
   x <- data[[metrisch]]
   g <- as.factor(data[[dichotom]])
   
