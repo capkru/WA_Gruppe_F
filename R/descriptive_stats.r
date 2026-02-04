@@ -126,3 +126,32 @@ plot_categorical_variables <- function(data, var1, var2, var3) {
     theme_minimal()
 }
 
+## (vi) Piechart für eine kategoriale Variable
+piechart_categorical <- function(data, variable) {
+  # Input-Checks 
+  if (!is.data.frame(data)) stop("Fehler in piechart_categorical: 
+                                 'data' muss Dataframe sein.")
+  if (!variable %in% names(data)) stop("Fehler in piechart_categorical: 
+                                       Variable nicht im Datensatz.")
+  if (!is.factor(data[[variable]]) && !is.character(data[[variable]])) 
+    stop(paste("Fehler in piechart_categorical:", variable, "muss kategorial sein."))
+  
+  freq <- table(data[[variable]])
+  png_file <- paste0("pie_", variable, ".png")
+  png(png_file, width = 600, height = 500, res = 100)
+  pie(freq, 
+      main = paste("Piechart:", variable),
+      labels = paste(names(freq), "\n", round(100 * prop.table(freq), 1), "%"),
+      col = c("gold", "blue", "coral"), 
+      clockwise = TRUE)
+  dev.off()
+  
+  cat("✅ Piechart gespeichert:", png_file, "\n")
+  cat("Verteilung:\n")
+  print(round(prop.table(freq) * 100, 1))
+  
+  print(pie(freq))  
+  
+  return(list(Frequenz = freq, Prozente = prop.table(freq)))
+}
+

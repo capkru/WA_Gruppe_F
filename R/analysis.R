@@ -1,6 +1,6 @@
 # Hilfsfuktionen laden
-source("R/descriptive_stats.R")
-source("R/helper_functions.R")
+source("R/descriptive_stats.r")
+source("R/helper_functions.r")
 
 # aufgeraeumten Datensatz laden
 titanic <- read.csv("data/titanic_cleaned.csv")
@@ -34,3 +34,11 @@ plot_categorical_variables(
   "Sex",
   "Pclass"
 )
+
+# Piechart für die Ticket-Klassen
+piechart_categorical(titanic, "Pclass")
+
+# Piechart für den Hafen
+piechart_categorical(titanic, "Embarked")
+
+
