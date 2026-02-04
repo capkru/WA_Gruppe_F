@@ -1,6 +1,6 @@
 # Analyse des Titanic-Datensatzes (WA_Gruppe_F)
 
-Gruppenarbeit im Modul "Wissenchaftliches Arbeiten" (Wintersemester 25/26)
+Gruppenarbeit im Modul "Wissenchaftliches Arbeiten" (Wintersemester 25/26).
 Ziel dieses Projekts ist die kollaborative Analyse des Titanic-Passagier-Datensatzes unter Verwendung von R, Git und GitHub.
 
 ## Autoren
