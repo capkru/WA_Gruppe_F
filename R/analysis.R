@@ -13,7 +13,31 @@ titanic$Embarked <- as.factor(titanic$Embarked)
 
 # (i) Metric variables
 stats_metric(titanic$Age)
+
+##Density curve
+plot(density(titanic$Age, na.rm = TRUE),
+     main = "Density Curve of Age",
+     xlab = "Age",
+     lwd = 2)
+
+##Boxplot
+boxplot(titanic$Age,
+        horizontal = TRUE,
+        col = "blue",
+        main = "Boxplot of Age")
+
 stats_metric(titanic$Fare)
+##Density curve
+plot(density(titanic$Fare, na.rm = TRUE),
+     main = "Density Curve of Fare",
+     xlab = "Age",
+     lwd = 2)
+
+##boxplot
+boxplot(titanic$Fare,
+        horizontal = TRUE,
+        col = "orange",
+        main = "Boxplot of Fare")
 
 # (ii) Categorical variables
 stats_categorical(titanic$Sex)
