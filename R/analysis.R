@@ -115,10 +115,16 @@ text(x = bp,
 # (iii) Two categorical variables
 #Überlebensrate und Geschlecht
 bivariat_kategorial(titanic, "Survived", "Sex")
+# Get bivariate results
+res_sex <- bivariat_kategorial(titanic, "Survived", "Sex")
 
-##Stackbarplot
-tab_sex_prop <- prop.table(tab_sex, margin = 2)
-##stacked barplot
+# Column-wise proportions
+tab_sex_prop <- prop.table(res_sex$Kontingenztabelle, margin = 2)
+
+# Reorder columns
+tab_sex_prop <- tab_sex_prop[, c("female", "male")]
+
+# Stacked barplot
 barplot(tab_sex_prop,
         col = c("red", "green"),
         main = "Überlebensrate nach Geschlecht",
@@ -129,13 +135,19 @@ barplot(tab_sex_prop,
 #Überlebensrate und Pclass
 bivariat_kategorial(titanic, "Survived", "Pclass")
 ##Stacked Barplot
-tab_class_prop <- prop.table(tab_class, margin = 2)
+res_class <- bivariat_kategorial(titanic, "Survived", "Pclass")
+
+tab_class_prop <- prop.table(res_class$Kontingenztabelle, margin = 2)
+
+# enforce BOTH orders
+tab_class_prop <- tab_class_prop[c("No", "Yes"), c("1", "2", "3")]
 
 barplot(tab_class_prop,
         col = c("red", "green"),
         main = "Überlebensrate nach Pclass",
         ylab = "Anteil",
-        legend.text = c("Nicht überlebt", "Überlebt"))
+        legend.text = c("Nicht überlebt", "Überlebt"),
+        names.arg = c("1", "2", "3"))
 
 # (iv) Metric × dichotomous
 #Age nach Survive
@@ -145,7 +157,7 @@ bivariat_metrisch_dichotom(titanic, "Fare", "Survived")
 
 # (v) Visualisierung von Daten
 plot_categorical_variables(
-  titanic_final,
+  titanic,
   "Survived",
   "Sex",
   "Pclass"
