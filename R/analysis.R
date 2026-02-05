@@ -83,7 +83,7 @@ bp <- barplot(props,
               main = "Relative Verteilung des Geschlechts",
               ylab = "Anteil",
               ylim = c(0, max(props) * 1.25),
-              names.arg = c("Nein", "Ja"))
+              names.arg = c("weiblich", "männlich"))
 
 labels <- paste0(round(props * 100, 1), "%\n(n=", counts, ")")
 
@@ -103,7 +103,7 @@ bp <- barplot(props,
               main = "Relative Verteilung der Überlebenden",
               ylab = "Anteil",
               ylim = c(0, max(props) * 1.25),
-              names.arg = c("weiblich", "männlich"))
+              names.arg = c("Nein", "Ja"))
 
 labels <- paste0(round(props * 100, 1), "%\n(n=", counts, ")")
 
