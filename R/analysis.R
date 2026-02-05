@@ -1,3 +1,6 @@
+#Pakete laden
+library(ggplot2)
+
 # Hilfsfuktionen laden
 source("R/descriptive_stats.r")
 source("R/helper_functions.r")
@@ -12,33 +15,17 @@ titanic$Sex      <- as.factor(titanic$Sex)
 titanic$Embarked <- as.factor(titanic$Embarked)
 
 # (i) Metric variables
+##titanic$Age
 stats_metric(titanic$Age)
-
-##Density curve
-plot(density(titanic$Age, na.rm = TRUE),
-     main = "Density Curve of Age",
-     xlab = "Age",
-     lwd = 2)
-
-##Boxplot
+##Boxplot 
 boxplot(titanic$Age,
         horizontal = TRUE,
-        col = "blue",
-        main = "Boxplot of Age")
+        col = "lightblue",
+        main = "die Verteilung des Alters",
+        xlab = "Alter")
 
+##titanic$Fare
 stats_metric(titanic$Fare)
-##Density curve
-plot(density(titanic$Fare, na.rm = TRUE),
-     main = "Density Curve of Fare",
-     xlab = "Age",
-     lwd = 2)
-
-##boxplot
-boxplot(titanic$Fare,
-        horizontal = TRUE,
-        col = "orange",
-        main = "Boxplot of Fare")
-
 ## Verteilung der Ticketpreise
 # 1. 95%-Quantil berechnen 
 limit_95 <- quantile(titanic$Fare, 0.95, na.rm = TRUE)
@@ -83,20 +70,77 @@ rug(fare_sub, col = rgb(0, 0, 0, 0.1))
 
 
 # (ii) Categorical variables
+##titanic$Sex
 stats_categorical(titanic$Sex)
+##barplot
+counts <- table(titanic$Sex)
+props  <- prop.table(counts)
+
+bp <- barplot(props,
+              col = c("pink", "lightblue"),
+              main = "Relative Verteilung des Geschlechts",
+              ylab = "Proportion",
+              ylim = c(0, max(props) * 1.25))
+
+labels <- paste0(round(props * 100, 1), "%\n(n=", counts, ")")
+
+text(x = bp,
+     y = props,
+     labels = labels,
+     pos = 3)
+
+##titanic$Survived
 stats_categorical(titanic$Survived)
+##barplot
+counts <- table(titanic$Survived)
+props  <- prop.table(counts)
+
+bp <- barplot(props,
+              col = c("pink", "lightblue"),
+              main = "Relative Verteilung der Überlebenden",
+              ylab = "Proportion",
+              ylim = c(0, max(props) * 1.25))
+
+labels <- paste0(round(props * 100, 1), "%\n(n=", counts, ")")
+
+text(x = bp,
+     y = props,
+     labels = labels,
+     pos = 3)
 
 # (iii) Two categorical variables
+#Überlebensrate und Geschlecht
 bivariat_kategorial(titanic, "Survived", "Sex")
+
+##Stackbarplot
+tab_sex_prop <- prop.table(tab_sex, margin = 2)
+##stacked barplot
+barplot(tab_sex_prop,
+        col = c("red", "green"),
+        main = "Überlebensrate nach Geschlecht",
+        ylab = "Proportion",
+        legend.text = c("Not Survived", "Survived"))
+
+#Überlebensrate und Pclass
 bivariat_kategorial(titanic, "Survived", "Pclass")
+##Stacked Barplot
+tab_class_prop <- prop.table(tab_class, margin = 2)
+
+barplot(tab_class_prop,
+        col = c("red", "green"),
+        main = "Überlebensrate nach Pclass",
+        ylab = "Proportion",
+        legend.text = c("Not Survived", "Survived"))
 
 # (iv) Metric × dichotomous
+#Age nach Survive
 bivariat_metrisch_dichotom(titanic, "Age", "Survived")
+#Fare nach Survive
 bivariat_metrisch_dichotom(titanic, "Fare", "Survived")
 
 # (v) Visualisierung von Daten
 plot_categorical_variables(
-  titanic,
+  titanic_final,
   "Survived",
   "Sex",
   "Pclass"
