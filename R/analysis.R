@@ -1,3 +1,4 @@
+Sys.setlocale("LC_ALL", "de_DE.UTF-8")
 #Pakete laden
 library(ggplot2)
 
@@ -39,6 +40,7 @@ hist(fare_sub,
      breaks = 20,                 
      main = "Verteilung der Ticketpreise (95%-Interval)",
      xlab = "Preis (Fare) in £",
+     ylab = "Dichte",
      col = "lightblue", 
      border = "white")
 
@@ -79,8 +81,9 @@ props  <- prop.table(counts)
 bp <- barplot(props,
               col = c("pink", "lightblue"),
               main = "Relative Verteilung des Geschlechts",
-              ylab = "Proportion",
-              ylim = c(0, max(props) * 1.25))
+              ylab = "Anteil",
+              ylim = c(0, max(props) * 1.25),
+              names.arg = c("weiblich", "männlich"))
 
 labels <- paste0(round(props * 100, 1), "%\n(n=", counts, ")")
 
@@ -98,8 +101,9 @@ props  <- prop.table(counts)
 bp <- barplot(props,
               col = c("pink", "lightblue"),
               main = "Relative Verteilung der Überlebenden",
-              ylab = "Proportion",
-              ylim = c(0, max(props) * 1.25))
+              ylab = "Anteil",
+              ylim = c(0, max(props) * 1.25),
+              names.arg = c("weiblich", "männlich"))
 
 labels <- paste0(round(props * 100, 1), "%\n(n=", counts, ")")
 
@@ -118,8 +122,9 @@ tab_sex_prop <- prop.table(tab_sex, margin = 2)
 barplot(tab_sex_prop,
         col = c("red", "green"),
         main = "Überlebensrate nach Geschlecht",
-        ylab = "Proportion",
-        legend.text = c("Not Survived", "Survived"))
+        ylab = "Anteil",
+        legend.text = c("Nicht überlebt", "Überlebt"),
+        names.arg = c("weiblich", "männlich"))
 
 #Überlebensrate und Pclass
 bivariat_kategorial(titanic, "Survived", "Pclass")
@@ -129,8 +134,8 @@ tab_class_prop <- prop.table(tab_class, margin = 2)
 barplot(tab_class_prop,
         col = c("red", "green"),
         main = "Überlebensrate nach Pclass",
-        ylab = "Proportion",
-        legend.text = c("Not Survived", "Survived"))
+        ylab = "Anteil",
+        legend.text = c("Nicht überlebt", "Überlebt"))
 
 # (iv) Metric × dichotomous
 #Age nach Survive

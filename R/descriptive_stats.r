@@ -109,21 +109,51 @@ bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
 plot_categorical_variables <- function(data, var1, var2, var3) {
   library(ggplot2)
   
-  # Checkt ob data ein Dataframe ist
-  if (!is.data.frame(data)) stop("Fehler in plot_categorical_variables: 
-                                 'data' muss ein Dataframe sein.")
+  # Checks
+  if (!is.data.frame(data))
+    stop("Fehler in plot_categorical_variables: 'data' muss ein Dataframe sein.")
   
-  # Checkt ob die Variable im Datensatz existiert
-  if (!all(c(var1, var2, var3) %in% names(data))) stop("Fehler in plot_categorical_variables: 
-                                                       Variablen existieren nicht im Datensatz.")
+  if (!all(c(var1, var2, var3) %in% names(data)))
+    stop("Fehler in plot_categorical_variables: Variablen existieren nicht im Datensatz.")
   
-  # einen Balkendiagramm erstellen
-  ggplot(data, aes(x = factor(.data[[var1]]), fill = interaction(.data[[var2]], .data[[var3]]))) +
+  ggplot(
+    data,
+    aes(
+      x = factor(.data[[var1]]),
+      fill = interaction(.data[[var2]], .data[[var3]])
+    )
+  ) +
     geom_bar(position = "dodge") +
-    labs(title = "kategorialen Variablene Visualization", 
-         x = var1, 
-         y = "Count", 
-         fill = "Interaktion zwischen Variabeln") +
+    labs(
+      title = "Visualisierung von drei kategorialen Variablen",
+      x = "Überlebensstatus",
+      y = "Anzahl",
+      fill = "Interaktion\n(Geschlecht · Klasse)"
+    ) +
+    scale_x_discrete(
+      labels = c(
+        "No"  = "Nicht überlebt",
+        "Yes" = "Überlebt"
+      )
+    ) +
+    scale_fill_manual(
+      values = c(
+        "male.3"   = "#E74C3C",
+        "female.3" = "#F1C40F",
+        "male.2"   = "#2ECC71",
+        "female.2" = "#1ABC9C",
+        "male.1"   = "#3498DB",
+        "female.1" = "#9B59B6"
+      ),
+      labels = c(
+        "male.3"   = "Männer, 3. Klasse",
+        "female.3" = "Frauen, 3. Klasse",
+        "male.2"   = "Männer, 2. Klasse",
+        "female.2" = "Frauen, 2. Klasse",
+        "male.1"   = "Männer, 1. Klasse",
+        "female.1" = "Frauen, 1. Klasse"
+      )
+    ) +
     theme_minimal()
 }
 
