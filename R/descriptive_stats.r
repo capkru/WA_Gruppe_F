@@ -95,9 +95,10 @@ bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
   g <- as.factor(data[[dichotom]])
   
   boxplot(x ~ g,
-          main = paste(metrisch, "nach", dichotom),
+          main = paste("Boxplot von", metrisch, "nach", dichotom),
           xlab = dichotom,
-          ylab = metrisch)
+          ylab = metrisch,
+          col = c("steelblue", "lightgreen"))
   
   tapply(x, g, mean, na.rm = TRUE)
 }
