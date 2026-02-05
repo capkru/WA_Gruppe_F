@@ -18,7 +18,7 @@ titanic$Anrede <- trimws(titanic$Anrede)
 ## 2. „Survived“, „Sex“, „Embarked“ als factor umcodieren (Gregor)
 titanic$Survived <- factor(titanic$Survived, levels = c(0, 1), 
                            labels = c("No", "Yes"))
-titanic$Sex <- factor(titanic$Sex, levels = c(0, 1),
+titanic$Sex <- factor(titanic$Sex, levels = c("male", "female"),
                       labels = c("male", "female"))
 titanic$Embarked <- factor(titanic$Embarked, levels = c("C", "Q", "S"),
                            labels = c("Cherbourg", "Queenstown", "Southampton"))
@@ -63,7 +63,7 @@ titanic$Deck[titanic$Deck == ""] <- NA
 
 ## 6. Spalten entfernen (Anas)
 col_to_remove <- c("Name", "Ticket", "Cabin", "PassengerId")
-# titanic_final <- titanic[, !(names(titanic) %in% col_to_remove)]
+titanic_final <- titanic[, !(names(titanic) %in% col_to_remove)]
 
 # Test 
 #print(colnames(titanic_final))
