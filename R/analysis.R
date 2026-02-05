@@ -1,9 +1,15 @@
 # Hilfsfuktionen laden
-source("functions/descriptive_stats.R")
-source("functions/helper_functions.R")
+source("R/descriptive_stats.r")
+source("R/helper_functions.r")
 
 # aufgeraeumten Datensatz laden
 titanic <- read.csv("data/titanic_cleaned.csv")
+
+# CSVs speichern keine Faktoren. Wir müssen R sagen, was kategorial ist.
+titanic$Survived <- as.factor(titanic$Survived)
+titanic$Pclass   <- as.factor(titanic$Pclass)
+titanic$Sex      <- as.factor(titanic$Sex)
+titanic$Embarked <- as.factor(titanic$Embarked)
 
 # (i) Metric variables
 stats_metric(titanic$Age)
@@ -28,3 +34,11 @@ plot_categorical_variables(
   "Sex",
   "Pclass"
 )
+
+# Piechart für die Ticket-Klassen
+piechart_categorical(titanic, "Pclass")
+
+# Piechart für den Hafen
+piechart_categorical(titanic, "Embarked")
+
+

@@ -1,30 +1,34 @@
 ## Aufgabe 2(a)
 
-source("helper_functions.r") # Hilfsfunktionen laden
+source("R/helper_functions.r") # Hilfsfunktionen laden
 
 ## (i) - Gregor
 stats_metric <- function(x) {
-    # Vor der Berechnung prüfen, ob die Variable numerisch ist
-    if (is.numeric(x)) { 
-        cat("Lageparameter:\n") 
-        print(berechne_lage(x))
+  # Vor der Berechnung prüfen, ob die Variable numerisch ist
+  if (!is.numeric(x)) {
+    stop("Fehler in stats_metric: Input muss numerisch sein.")
+  }
+  
+  cat("Lageparameter:\n") 
+  print(berechne_lage(x))
 
-        cat("\nStreuungsmaße:\n")
-        print(berechne_streuung(x))
+  cat("\nStreuungsmaße:\n")
+  print(berechne_streuung(x))
         
-        cat("\nVerteilungsmaße:\n")
-        print(berechne_verteilung(x))
+  cat("\nVerteilungsmaße:\n")
+  print(berechne_verteilung(x))
 
-        cat("\nMin und Max:\n")
-        print(berechne_extrema(x))
-    }
+  cat("\nMin und Max:\n")
+  print(berechne_extrema(x))
 }
 
 
 ## (ii) - Daniel
 stats_categorical <- function(x) {
   # Checkt ob die Daten in der richtigen Form sind
-  if(!is.factor(x) && !is.character(x)) stop("Kein Kategorialer Parameter")
+  if(!is.factor(x) && !is.character(x)) stop("Fehler in stats_categorical: 
+                                             Input muss ein Faktor oder 
+                                             Character sein.")
   
   # Gibt die absolute Häufigkeit der Variable aus
   cat("Absolute Häufigkeit:\n")
@@ -42,6 +46,26 @@ stats_categorical <- function(x) {
 
 ## (iii) - Mirah
 bivariat_kategorial <- function(data, var1, var2){
+  # Checkt ob data ein Dataframe ist
+  if (!is.data.frame(data)) stop("Fehler in bivariat_kategorial: 
+                                 data muss ein Dataframe sein.")
+  
+  # Checkt ob var1 und var2 Strings sind
+  if (!is.character(var1) || !is.character(var2)) stop("Fehler in 
+                                                       bivariat_kategorial: 
+                                                       var1 und var2 müssen
+                                                       Strings sein.")
+  
+  # Checkt ob die Spalten im Datensatz existieren
+  if (!all(c(var1, var2) %in% names(data))) stop("Fehler in bivariat_kategorial: 
+                                                 Eine der Variablen existiert 
+                                                 nicht im Datensatz.")
+  # Checkt ob die Spalten an sich kategorial sind
+  if (!is.factor(data[[var1]]) && !is.character(data[[var1]])) stop(paste(
+    "Fehler in bivariat_kategorial:", var1, "ist nicht kategorial."))
+  if (!is.factor(data[[var2]]) && !is.character(data[[var2]])) stop(paste(
+    "Fehler in bivariat_kategorial:", var2, "ist nicht kategorial."))
+  
   tab <- table(data[[var1]], data[[var2]])
   
   list(
@@ -51,8 +75,22 @@ bivariat_kategorial <- function(data, var1, var2){
 }
 
 ## (iv) - Yi Wei
-##Metrisch x dichotom
+## Metrisch x dichotom
 bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
+  # Checkt ob data ein Dataframe ist
+  if (!is.data.frame(data)) stop("Fehler in bivariat_metrisch_dichotom: 
+                                 'data' muss ein Dataframe sein.")
+  # Checkt ob die Variable im Datensatz ist
+  if (!all(c(metrisch, dichotom) %in% names(data))) stop("Fehler in bivariat_metrisch_dichotom: 
+                                                         Variablen nicht im Datensatz gefunden.")
+  
+  # Checkt den Datentyp der Spalte
+  if (!is.numeric(data[[metrisch]])) stop(paste("Fehler bivariat_metrisch_dichotom:", 
+                                                metrisch, "muss numerisch sein."))
+  
+  # Checkt dichotom
+  if (length(unique(na.omit(data[[dichotom]]))) != 2)  stop("Fehler: dichotome Variable muss genau zwei Ausprägungen haben.")
+  
   x <- data[[metrisch]]
   g <- as.factor(data[[dichotom]])
   
@@ -70,8 +108,16 @@ bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
 plot_categorical_variables <- function(data, var1, var2, var3) {
   library(ggplot2)
   
+  # Checkt ob data ein Dataframe ist
+  if (!is.data.frame(data)) stop("Fehler in plot_categorical_variables: 
+                                 'data' muss ein Dataframe sein.")
+  
+  # Checkt ob die Variable im Datensatz existiert
+  if (!all(c(var1, var2, var3) %in% names(data))) stop("Fehler in plot_categorical_variables: 
+                                                       Variablen existieren nicht im Datensatz.")
+  
   # einen Balkendiagramm erstellen
-  ggplot(data, aes(x = factor(var1), fill = interaction(var2, var3))) +
+  ggplot(data, aes(x = factor(.data[[var1]]), fill = interaction(.data[[var2]], .data[[var3]]))) +
     geom_bar(position = "dodge") +
     labs(title = "kategorialen Variablene Visualization", 
          x = var1, 
@@ -79,3 +125,33 @@ plot_categorical_variables <- function(data, var1, var2, var3) {
          fill = "Interaktion zwischen Variabeln") +
     theme_minimal()
 }
+
+## (vi) Piechart für eine kategoriale Variable
+piechart_categorical <- function(data, variable) {
+  # Input-Checks 
+  if (!is.data.frame(data)) stop("Fehler in piechart_categorical: 
+                                 'data' muss Dataframe sein.")
+  if (!variable %in% names(data)) stop("Fehler in piechart_categorical: 
+                                       Variable nicht im Datensatz.")
+  if (!is.factor(data[[variable]]) && !is.character(data[[variable]])) 
+    stop(paste("Fehler in piechart_categorical:", variable, "muss kategorial sein."))
+  
+  freq <- table(data[[variable]])
+  png_file <- paste0("pie_", variable, ".png")
+  png(png_file, width = 600, height = 500, res = 100)
+  pie(freq, 
+      main = paste("Piechart:", variable),
+      labels = paste(names(freq), "\n", round(100 * prop.table(freq), 1), "%"),
+      col = c("gold", "blue", "coral"), 
+      clockwise = TRUE)
+  dev.off()
+  
+  cat("✅ Piechart gespeichert:", png_file, "\n")
+  cat("Verteilung:\n")
+  print(round(prop.table(freq) * 100, 1))
+  
+  print(pie(freq))  
+  
+  return(list(Frequenz = freq, Prozente = prop.table(freq)))
+}
+
