@@ -75,7 +75,7 @@ rug(fare_sub, col = rgb(0, 0, 0, 0.1))
 ##titanic$Sex
 stats_categorical(titanic$Sex)
 ##barplot
-counts <- table(titanic$Sex)
+counts <- table(titanic$Sex)[c("female", "male")]
 props  <- prop.table(counts)
 
 bp <- barplot(props,
