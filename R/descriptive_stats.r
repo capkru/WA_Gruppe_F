@@ -75,30 +75,29 @@ bivariat_kategorial <- function(data, var1, var2){
 }
 
 ## (iv) - Yi Wei
-## Metrisch x dichotom
 bivariat_metrisch_dichotom <- function(data, metrisch, dichotom) {
-  # Checkt ob data ein Dataframe ist
-  if (!is.data.frame(data)) stop("Fehler in bivariat_metrisch_dichotom: 
-                                 'data' muss ein Dataframe sein.")
-  # Checkt ob die Variable im Datensatz ist
-  if (!all(c(metrisch, dichotom) %in% names(data))) stop("Fehler in bivariat_metrisch_dichotom: 
-                                                         Variablen nicht im Datensatz gefunden.")
   
-  # Checkt den Datentyp der Spalte
-  if (!is.numeric(data[[metrisch]])) stop(paste("Fehler bivariat_metrisch_dichotom:", 
-                                                metrisch, "muss numerisch sein."))
+  if (!is.data.frame(data))
+    stop("Fehler: 'data' muss ein Dataframe sein.")
   
-  # Checkt dichotom
-  if (length(unique(na.omit(data[[dichotom]]))) != 2)  stop("Fehler: dichotome Variable muss genau zwei Ausprägungen haben.")
+  if (!all(c(metrisch, dichotom) %in% names(data)))
+    stop("Fehler: Variablen nicht im Datensatz gefunden.")
+  
+  if (!is.numeric(data[[metrisch]]))
+    stop(paste("Fehler:", metrisch, "muss numerisch sein."))
+  
+  if (length(unique(na.omit(data[[dichotom]]))) != 2)
+    stop("Fehler: dichotome Variable muss genau zwei Ausprägungen haben.")
   
   x <- data[[metrisch]]
-  g <- as.factor(data[[dichotom]])
+  g <- factor(data[[dichotom]],
+              labels = c("Nicht überlebt", "Überlebt"))
   
   boxplot(x ~ g,
-          main = paste("Boxplot von", metrisch, "nach", dichotom),
-          xlab = dichotom,
-          ylab = metrisch,
-          col = c("steelblue", "lightgreen"))
+          main = paste("Verteilung von", metrisch, "nach Überlebensstatus"),
+          xlab = "Überlebensstatus",
+          ylab = ifelse(metrisch == "Age", "Alter (Jahre)", "Ticketpreis (£)"),
+          col = c("lightcoral", "lightgreen"))
   
   tapply(x, g, mean, na.rm = TRUE)
 }
