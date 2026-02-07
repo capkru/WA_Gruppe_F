@@ -115,6 +115,7 @@ plot_categorical_variables <- function(data, var1, var2, var3) {
   if (!all(c(var1, var2, var3) %in% names(data)))
     stop("Fehler in plot_categorical_variables: Variablen existieren nicht im Datensatz.")
   
+  # Erstellung der Grafik
   ggplot(
     data,
     aes(
