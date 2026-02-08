@@ -125,7 +125,7 @@ plot_categorical_variables <- function(data, var1, var2, var3) {
   ) +
     geom_bar(position = "dodge") +
     labs(
-      title = "Visualisierung von drei kategorialen Variablen",
+      title = "Überlebensstatus nach Geschlecht und Passagierklasse",
       x = "Überlebensstatus",
       y = "Anzahl",
       fill = "Interaktion\n(Geschlecht · Klasse)"
