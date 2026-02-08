@@ -22,7 +22,7 @@ stats_metric(titanic$Age)
 boxplot(titanic$Age,
         horizontal = TRUE,
         col = "lightblue",
-        main = "die Verteilung des Alters",
+        main = "Verteilung des Alters",
         xlab = "Alter")
 
 ##titanic$Fare
@@ -38,7 +38,7 @@ fare_sub <- titanic$Fare[titanic$Fare <= limit_95]
 hist(fare_sub, 
      freq = FALSE,                
      breaks = 20,                 
-     main = "Verteilung der Ticketpreise (95%-Interval)",
+     main = "Verteilung der Fahrpreise (95%-Intervall)",
      xlab = "Preis (Fare) in £",
      ylab = "Dichte",
      col = "lightblue", 
@@ -132,9 +132,9 @@ barplot(tab_sex_prop,
         legend.text = c("Nicht überlebt", "Überlebt"),
         names.arg = c("weiblich", "männlich"))
 
-#Überlebensrate und Pclass
+# Überlebensrate und Pclass
 bivariat_kategorial(titanic, "Survived", "Pclass")
-##Stacked Barplot
+## Stacked Barplot
 res_class <- bivariat_kategorial(titanic, "Survived", "Pclass")
 
 tab_class_prop <- prop.table(res_class$Kontingenztabelle, margin = 2)
@@ -144,7 +144,7 @@ tab_class_prop <- tab_class_prop[c("No", "Yes"), c("1", "2", "3")]
 
 barplot(tab_class_prop,
         col = c("red", "green"),
-        main = "Überlebensrate nach Pclass",
+        main = "Überlebensrate nach Passagierklasse",
         ylab = "Anteil",
         legend.text = c("Nicht überlebt", "Überlebt"),
         names.arg = c("1", "2", "3"))
